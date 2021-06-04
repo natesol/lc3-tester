@@ -1,0 +1,2 @@
+Enter N, i.e., number between 1 to 30: 3
+Number of possible solutions: 0

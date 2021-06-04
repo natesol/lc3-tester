@@ -1,0 +1,32 @@
+{
+    "settings": {
+        "hwNum": 4,
+        "resetRegisters": false,
+        "reloadMachine": false,
+        "codePath": "./lc3-code/HW04/hw4.hex",
+        "outputPath": "./tests/output",
+        "screenshot": false,
+        "time": true,
+        "bot": {
+            "watch": true,
+            "slowMo": 0,
+            "setViewportWidth": 1800,
+            "setViewportHeight": 920
+        }
+    },
+    "expectedOutput": true,
+    "tests": [
+        "./tests/test_inputs_hw04/input1.txt",
+        "./tests/test_inputs_hw04/input2.txt",
+        "./tests/test_inputs_hw04/input3.txt",
+        "./tests/test_inputs_hw04/input4.txt",
+        "./tests/test_inputs_hw04/input5.txt",
+        "./tests/test_inputs_hw04/input6.txt",
+        "./tests/test_inputs_hw04/input7.txt",
+        "./tests/test_inputs_hw04/input8.txt",
+        "./tests/test_inputs_hw04/input9.txt",
+        "./tests/test_inputs_hw04/input10.txt",
+        "./tests/test_inputs_hw04/input11.txt",
+        "./tests/test_inputs_hw04/input12.txt"
+    ]
+}
