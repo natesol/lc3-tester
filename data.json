@@ -8,7 +8,7 @@
         "screenshot": false,
         "time": true,
         "bot": {
-            "watch": true,
+            "watch": false,
             "slowMo": 0,
             "setViewportWidth": 1800,
             "setViewportHeight": 920

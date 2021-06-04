@@ -25,6 +25,18 @@ const timeFormat = (start, end) => {
     return `${format(end.getHours() - start.getHours())}:${format(end.getMinutes() - start.getMinutes())}:${format(end.getSeconds() - start.getSeconds())}`;
 }
 
+// output comparison & test result (utility)
+const outputCompHandler = async (output, correctOutput, i) => {
+    let result = 'Passed';
+    
+    if ( output.replace(/ /g, '') != correctOutput.replace(/ /g, '') ) {
+        await fs.writeFileSync(data.settings.outputPath + `/test${i+1}expectedOutput.txt`, correctOutput);
+        result = 'Failed';
+    }
+    return result;
+}
+
+
 // ----------------------------------------------
 
 // bot test runner.
@@ -79,14 +91,14 @@ const timeFormat = (start, end) => {
             await page.keyboard.type(line);
             await page.keyboard.press('Enter');
             await page.evaluate( async () => {
-                function sleep (time) { return new Promise ( (resolve) => setTimeout(resolve, time) );}
+                function sleep (zzz) { return new Promise ( (resolve) => setTimeout(resolve, zzz) );}
                 const inputBuffer = document.querySelector('#buffered-char-count');
                 while ( inputBuffer.innerText != "0" ) { await sleep(15) }
             });
         }
         // wait for current program run to finish (end of output).
         await page.evaluate( async () => {
-            function sleep (time) { return new Promise ( (resolve) => setTimeout(resolve, time) );}
+            function sleep (zzz) { return new Promise ( (resolve) => setTimeout(resolve, zzz) );}
             const inputBuffer = document.querySelector('#buffered-char-count');
             const console = document.querySelector('#console-contents');
             while ( inputBuffer.innerText != "0" ) { await sleep(15) }
@@ -96,7 +108,7 @@ const timeFormat = (start, end) => {
 
         // create the correct output.
         const correctOutput = expectedOutput(data.testList[i]);
-        if ( data.expectedOutput ) { await fs.writeFileSync(data.settings.outputPath + `/expectedOutput${i+1}.txt`, correctOutput) }
+
         // get the test run output.
         let output = await page.$eval('#console-contents', e => e.textContent );
         output = output.split('\n').filter( e => !e.includes('Halting the processor') && e != '' ).join('\n');
@@ -138,7 +150,7 @@ const timeFormat = (start, end) => {
         }
         
         // test message.
-        console.log(`Test #${i+1} - ${( output.replace(/ /g, '') == correctOutput.replace(/ /g, '') ? 'Passed' : 'Failed' )}${data.settings.time ? ` - Run Time  ` + timeFormat(startTime, new Date()) : `.` }`);
+        console.log(`Test #${i+1} - ${ data.expectedOutput ? await outputCompHandler(output,correctOutput,i) : 'Ended' }${ data.settings.time ? ` - Run Time  ` + timeFormat(startTime, new Date()) : `.` }`);
     }
     
     // close browser and page objects (end bot run).
