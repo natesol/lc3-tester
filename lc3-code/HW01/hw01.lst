@@ -1,0 +1,66 @@
+(0000) 3000  0011000000000000 (   1)                 .ORIG x3000
+(3000) 5020  0101000000100000 (   4)                 AND   R0 R0 #0
+(3001) 1020  0001000000100000 (   5)                 ADD   R0 R0 #0
+(3002) 5260  0101001001100000 (   6)                 AND   R1 R1 #0
+(3003) 1260  0001001001100000 (   7)                 ADD   R1 R1 #0
+(3004) 54A0  0101010010100000 (   8)                 AND   R2 R2 #0
+(3005) 14A0  0001010010100000 (   9)                 ADD   R2 R2 #0
+(3006) 4809  0100100000001001 (  10)                 JSR   TriangleInequality
+(3007) 16E0  0001011011100000 (  11)                 ADD   R3 R3 #0
+(3008) F025  1111000000100101 (  13)                 TRAP  x25
+(3009) 0000  0000000000000000 (  15) R0_SAVE_TriangleInequality .FILL x0000
+(300A) 0000  0000000000000000 (  16) R1_SAVE_TriangleInequality .FILL x0000
+(300B) 0000  0000000000000000 (  17) R2_SAVE_TriangleInequality .FILL x0000
+(300C) 0000  0000000000000000 (  18) R4_SAVE_TriangleInequality .FILL x0000
+(300D) 0000  0000000000000000 (  19) R5_SAVE_TriangleInequality .FILL x0000
+(300E) 0000  0000000000000000 (  20) R6_SAVE_TriangleInequality .FILL x0000
+(300F) 0000  0000000000000000 (  21) R7_SAVE_TriangleInequality .FILL x0000
+(3010) 31F8  0011000111111000 (  25) TriangleInequality ST    R0 R0_SAVE_TriangleInequality
+(3011) 33F8  0011001111111000 (  26)                 ST    R1 R1_SAVE_TriangleInequality
+(3012) 35F8  0011010111111000 (  27)                 ST    R2 R2_SAVE_TriangleInequality
+(3013) 39F8  0011100111111000 (  28)                 ST    R4 R4_SAVE_TriangleInequality
+(3014) 3BF8  0011101111111000 (  29)                 ST    R5 R5_SAVE_TriangleInequality
+(3015) 3DF8  0011110111111000 (  30)                 ST    R6 R6_SAVE_TriangleInequality
+(3016) 3FF8  0011111111111000 (  31)                 ST    R7 R7_SAVE_TriangleInequality
+(3017) 1020  0001000000100000 (  35)                 ADD   R0 R0 #0
+(3018) 0601  0000011000000001 (  36)                 BRZP  CHECK_IF_R1_IS_NEGATIVE_Tri
+(3019) 0E1C  0000111000011100 (  37)                 BRNZP NOT_GOOD
+(301A) 1260  0001001001100000 (  40) CHECK_IF_R1_IS_NEGATIVE_Tri ADD   R1 R1 #0
+(301B) 0601  0000011000000001 (  41)                 BRZP  CHECK_IF_R2_IS_NEGATIVE_Tri
+(301C) 0E19  0000111000011001 (  42)                 BRNZP NOT_GOOD
+(301D) 14A0  0001010010100000 (  45) CHECK_IF_R2_IS_NEGATIVE_Tri ADD   R2 R2 #0
+(301E) 0601  0000011000000001 (  46)                 BRZP  FINISH_CHECK_NEGATIVITY_Tri
+(301F) 0E16  0000111000010110 (  47)                 BRNZP NOT_GOOD
+(3020) 5920  0101100100100000 (  50) FINISH_CHECK_NEGATIVITY_Tri AND   R4 R4 #0
+(3021) 5B60  0101101101100000 (  51)                 AND   R5 R5 #0
+(3022) 5DA0  0101110110100000 (  52)                 AND   R6 R6 #0
+(3023) 983F  1001100000111111 (  54)                 NOT   R4 R0
+(3024) 1921  0001100100100001 (  55)                 ADD   R4 R4 #1
+(3025) 9A7F  1001101001111111 (  57)                 NOT   R5 R1
+(3026) 1B61  0001101101100001 (  58)                 ADD   R5 R5 #1
+(3027) 9CBF  1001110010111111 (  60)                 NOT   R6 R2
+(3028) 1DA1  0001110110100001 (  61)                 ADD   R6 R6 #1
+(3029) 5FE0  0101111111100000 (  64)                 AND   R7 R7 #0
+(302A) 1E42  0001111001000010 (  67)                 ADD   R7 R1 R2
+(302B) 1FC4  0001111111000100 (  68)                 ADD   R7 R7 R4
+(302C) 0809  0000100000001001 (  69)                 BRN   NOT_GOOD
+(302D) 5FE0  0101111111100000 (  72)                 AND   R7 R7 #0
+(302E) 1E02  0001111000000010 (  73)                 ADD   R7 R0 R2
+(302F) 1FC5  0001111111000101 (  74)                 ADD   R7 R7 R5
+(3030) 0805  0000100000000101 (  75)                 BRN   NOT_GOOD
+(3031) 5FE0  0101111111100000 (  78)                 AND   R7 R7 #0
+(3032) 1E01  0001111000000001 (  79)                 ADD   R7 R0 R1
+(3033) 1FC6  0001111111000110 (  80)                 ADD   R7 R7 R6
+(3034) 0801  0000100000000001 (  81)                 BRN   NOT_GOOD
+(3035) 0E02  0000111000000010 (  83)                 BRNZP GOOD
+(3036) 56E0  0101011011100000 (  86) NOT_GOOD        AND   R3 R3 #0
+(3037) 0E01  0000111000000001 (  87)                 BRNZP DONE_TriangleInequality
+(3038) 16E1  0001011011100001 (  90) GOOD            ADD   R3 R3 #1
+(3039) 21CF  0010000111001111 (  93) DONE_TriangleInequality LD    R0 R0_SAVE_TriangleInequality
+(303A) 23CF  0010001111001111 (  94)                 LD    R1 R1_SAVE_TriangleInequality
+(303B) 25CF  0010010111001111 (  95)                 LD    R2 R2_SAVE_TriangleInequality
+(303C) 29CF  0010100111001111 (  96)                 LD    R4 R4_SAVE_TriangleInequality
+(303D) 2BCF  0010101111001111 (  97)                 LD    R5 R5_SAVE_TriangleInequality
+(303E) 2DCF  0010110111001111 (  98)                 LD    R6 R6_SAVE_TriangleInequality
+(303F) 2FCF  0010111111001111 (  99)                 LD    R7 R7_SAVE_TriangleInequality
+(3040) C1C0  1100000111000000 ( 101)                 RET   

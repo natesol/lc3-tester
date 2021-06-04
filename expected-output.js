@@ -71,4 +71,5 @@ function hw04Solution (input) {
 
 
 // 
-module.exports = { hw03Solution, hw04Solution };
+module.exports.hw03 = hw03Solution;
+module.exports.hw04 = hw04Solution;

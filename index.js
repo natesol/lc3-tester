@@ -3,6 +3,7 @@
 // modules
 const puppeteer = require('puppeteer');
 const fs = require('fs');
+const path = require('path');
 const { error } = require('console');
 
 // online compiler url
@@ -15,8 +16,7 @@ data.testList = [];
 data["tests"].forEach( (path, i) => data.testList[i] = (JSON.stringify(fs.readFileSync(path, 'utf8'))).replace(/"/g,'').split('\\r\\n').filter(s => s.length > 0 ) );
 
 // the excepted output creator function
-const outputFunctions = require('./expected-output');
-const expectedOutput = outputFunctions[`hw0${data.settings.hwNum}Solution`];
+const expectedOutput = require('./expected-output')[`hw0${data.settings.hwNum}`];
 
 
 // time formatter function (utility)
